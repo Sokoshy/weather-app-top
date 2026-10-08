@@ -26,9 +26,9 @@ async function displayWeather(location, handleSearch) {
 
   const weatherContent = document.createElement("p")
   if(isCelsius) {
-    weatherContent.textContent = `In ${searchResult.address} the actual temperature is ${searchResult.temp}°C and condition ${searchResult.condition} the max temp ${searchResult.tempmax}°C and the min temp ${searchResult.tempmin}°C`
+    weatherContent.textContent = `In ${searchResult.address} the actual temperature is ${searchResult.temp}°C and condition is ${searchResult.condition} the max temp is ${searchResult.tempmax}°C and the min temp is ${searchResult.tempmin}°C`
   }else {
-  weatherContent.textContent = `In ${searchResult.address} the actual temperature is ${searchResult.temp}°F and condition ${searchResult.condition} the max temp ${searchResult.tempmax}°F and the min temp ${searchResult.tempmin}°F`
+  weatherContent.textContent = `In ${searchResult.address} the actual temperature is ${searchResult.temp}°F and condition is ${searchResult.condition} the max temp is ${searchResult.tempmax}°F and the min temp is ${searchResult.tempmin}°F`
   }
   weatherDiv.appendChild(icon);
   weatherDiv.appendChild(weatherContent);
