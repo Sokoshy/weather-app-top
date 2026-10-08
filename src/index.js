@@ -10,6 +10,7 @@ const searchForm = document.getElementById("search-form");
 const inputlocation = document.getElementById("location");
 const toggleTemp = document.getElementById("toggle-temp");
 const weatherDiv = document.getElementById("weather");
+const loading = document.getElementById("loading");
 
 let isCelsius = false;
 let lastLocation;
@@ -19,19 +20,28 @@ function handleSearch(location) {
 }
 
 async function displayWeather(location, handleSearch) {
-  const searchResult = await handleSearch(location);
+  loading.hidden = false;
   
-  const icon = document.createElement("p")
-  icon.textContent = `${searchResult.icon}`
+  try {
+    const searchResult = await handleSearch(location);
 
-  const weatherContent = document.createElement("p")
-  if(isCelsius) {
-    weatherContent.textContent = `In ${searchResult.address} the actual temperature is ${searchResult.temp}°C and condition is ${searchResult.condition} the max temp is ${searchResult.tempmax}°C and the min temp is ${searchResult.tempmin}°C`
-  }else {
-  weatherContent.textContent = `In ${searchResult.address} the actual temperature is ${searchResult.temp}°F and condition is ${searchResult.condition} the max temp is ${searchResult.tempmax}°F and the min temp is ${searchResult.tempmin}°F`
+    const icon = document.createElement("p")
+    icon.textContent = `${searchResult.icon}`
+
+    const weatherContent = document.createElement("p")
+    if(isCelsius) {
+      weatherContent.textContent = `In ${searchResult.address} the actual temperature is ${searchResult.temp}°C and condition is ${searchResult.condition} the max temp is ${searchResult.tempmax}°C and the min temp is ${searchResult.tempmin}°C`
+    }else {
+    weatherContent.textContent = `In ${searchResult.address} the actual temperature is ${searchResult.temp}°F and condition is ${searchResult.condition} the max temp is ${searchResult.tempmax}°F and the min temp is ${searchResult.tempmin}°F`
+    }
+
+    loading.hidden = true;
+    weatherDiv.appendChild(icon);
+    weatherDiv.appendChild(weatherContent);
+  } catch (error) {
+    loading.hidden = true;
+    weatherDiv.textContent = `Oups an error occurred. ${error}.`;
   }
-  weatherDiv.appendChild(icon);
-  weatherDiv.appendChild(weatherContent);
 }
 
 searchForm.addEventListener("submit", (e) => {
