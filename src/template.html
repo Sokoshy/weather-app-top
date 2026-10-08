@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App TOP</title>
+  </head>
+  <body>
+    <h1>Météo</h1>
+    <form id="search-form">
+      <label for="location">Ville :</label>
+      <input type="text" id="location" name="location" placeholder="Paris" required />
+      <button type="submit">Chercher</button>
+    </form>
+
+    <div>
+      <button type="button" id="toggle-temp">Afficher en °F / °C</button>
+    </div>
+
+    <div id="loading" hidden>Chargement…</div>
+    <div id="weather"></div>
+  </body>
+</html>
