@@ -11,8 +11,11 @@ const inputlocation = document.getElementById("location");
 const toggleTemp = document.getElementById("toggle-temp");
 const weatherDiv = document.getElementById("weather");
 
+let isCelsius = false;
+let lastLocation;
+
 function handleSearch(location) {
-  return getWeather(location).then(data => { return processWeatherData(data) });
+  return getWeather(location, isCelsius).then(data => { return processWeatherData(data) });
 }
 
 async function displayWeather(location, handleSearch) {
@@ -22,8 +25,11 @@ async function displayWeather(location, handleSearch) {
   icon.textContent = `${searchResult.icon}`
 
   const weatherContent = document.createElement("p")
-  weatherContent.textContent = `In ${searchResult.address} the actual temperature is ${searchResult.temp} and condition ${searchResult.condition} the max temp ${searchResult.tempmax} and the min temp ${searchResult.tempmin}`
-
+  if(isCelsius) {
+    weatherContent.textContent = `In ${searchResult.address} the actual temperature is ${searchResult.temp}°C and condition ${searchResult.condition} the max temp ${searchResult.tempmax}°C and the min temp ${searchResult.tempmin}°C`
+  }else {
+  weatherContent.textContent = `In ${searchResult.address} the actual temperature is ${searchResult.temp}°F and condition ${searchResult.condition} the max temp ${searchResult.tempmax}°F and the min temp ${searchResult.tempmin}°F`
+  }
   weatherDiv.appendChild(icon);
   weatherDiv.appendChild(weatherContent);
 }
@@ -31,5 +37,12 @@ async function displayWeather(location, handleSearch) {
 searchForm.addEventListener("submit", (e) => {
   weatherDiv.textContent = "";
   displayWeather(inputlocation.value, handleSearch)
+  lastLocation = inputlocation.value;
   e.preventDefault();
+})
+
+toggleTemp.addEventListener("click", () => {
+  isCelsius = isCelsius ? false : true;
+  weatherDiv.textContent = "";
+  displayWeather(lastLocation, handleSearch)
 })
