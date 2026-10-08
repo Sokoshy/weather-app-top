@@ -14,3 +14,7 @@ export async function getWeather(location) {
     console.log(error);
   }
 }
+
+export function processWeatherData(raw) {
+  return { address: raw.address, temp: raw.currentConditions.temp, condition: raw.currentConditions.conditions, icon: raw.currentConditions.icon, tempmax: raw.days[0].tempmax, tempmin: raw.days[0].tempmin };
+}
