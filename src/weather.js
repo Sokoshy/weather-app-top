@@ -12,7 +12,7 @@ export async function getWeather(location, isCelsius) {
   return locationData;
 
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 }
 
