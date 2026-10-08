@@ -1,11 +1,6 @@
 import "./style.css";
 import { getWeather, processWeatherData } from "./weather.js";
 
-
-console.log("Weather App TOP — setup OK");
-
-console.log("Clé présente ?", typeof process.env.WEBPACK_VISUAL_CROSSING_KEY !== "undefined");
-
 const searchForm = document.getElementById("search-form");
 const inputlocation = document.getElementById("location");
 const toggleTemp = document.getElementById("toggle-temp");
@@ -19,9 +14,9 @@ function handleSearch(location) {
   return getWeather(location, isCelsius).then(data => { return processWeatherData(data) });
 }
 
-async function displayWeather(location, handleSearch) {
+async function displayWeather(location) {
   loading.hidden = false;
-  
+
   try {
     const searchResult = await handleSearch(location);
 
@@ -46,7 +41,7 @@ async function displayWeather(location, handleSearch) {
 
 searchForm.addEventListener("submit", (e) => {
   weatherDiv.textContent = "";
-  displayWeather(inputlocation.value, handleSearch)
+  displayWeather(inputlocation.value)
   lastLocation = inputlocation.value;
   e.preventDefault();
 })
@@ -54,5 +49,5 @@ searchForm.addEventListener("submit", (e) => {
 toggleTemp.addEventListener("click", () => {
   isCelsius = isCelsius ? false : true;
   weatherDiv.textContent = "";
-  displayWeather(lastLocation, handleSearch)
+  displayWeather(lastLocation)
 })
